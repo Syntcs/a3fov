@@ -56,27 +56,27 @@
     <div class="blur-background"></div>
 
     <!-- Main content -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md main-content">
+    <div class="p-6 rounded-xl shadow-lg w-full max-w-md main-content" style="background-color: #1e1e1e;">
         <h1 class="text-2xl font-bold text-center mb-4">Arma 3 FOV Calculator</h1>
 
         <label class="block mb-2">Resolution:</label>
         <div class="flex space-x-2 mb-4">
-            <input type="number" id="width" class="w-1/2 p-2 rounded bg-gray-700 text-white">
+            <input type="number" id="width" class="w-1/2 p-2 rounded text-white" style="background-color: #2e2e2e;">
             <span class="text-xl">×</span>
-            <input type="number" id="height" class="w-1/2 p-2 rounded bg-gray-700 text-white">
+            <input type="number" id="height" class="w-1/2 p-2 rounded text-white" style="background-color: #2e2e2e;">
         </div>
 
         <label class="block mb-2">Aspect Ratio:</label>
-        <select id="aspectRatio" class="w-full p-2 rounded bg-gray-700 text-white mb-4">
+        <select id="aspectRatio" class="w-full p-2 rounded text-white mb-4" style="background-color: #2e2e2e;">
             <option value="16/9">16:9</option>
             <option value="4/3">4:3</option>
             <option value="21/9">21:9</option>
         </select>
 
         <label class="block mb-2">FOV:</label>
-        <input type="number" id="horFov" placeholder="e.g. 90" class="w-full p-2 rounded bg-gray-700 text-white mb-4">
+        <input type="number" id="horFov" placeholder="e.g. 90" class="w-full p-2 rounded text-white mb-4" style="background-color: #2e2e2e;">
 
-        <button onclick="calculateFOV()" class="w-full bg-blue-600 hover:bg-blue-500 p-2 rounded text-white font-bold">
+        <button onclick="calculateFOV()" class="w-full bg-gray-600 hover:bg-gray-500 p-2 rounded text-white font-bold">
             Calculate
         </button>
 
@@ -89,7 +89,7 @@
             </button>
 
             <!-- Tutorial Section -->
-            <div class="mt-4 p-4 bg-gray-700 rounded-lg">
+            <div class="mt-4 p-4 rounded-lg" style="background-color: #2e2e2e;">
                 <h3 class="font-semibold mb-2">How to Apply FOV in Arma 3:</h3>
                 <ol class="list-decimal list-inside text-sm">
                     <li>Go to <strong>Documents</strong>.</li>
@@ -97,7 +97,7 @@
                     <li>Open your <strong>[username]</strong> folder.</li>
                     <li>Edit the <strong>[username].Arma3Profile</strong> file with a text editor.</li>
                     <li>Change following lines:
-                        <pre class="bg-gray-800 p-2 rounded mt-2"><code>fovTop=<span id="tutorialFovTop"></span>;
+                        <pre class="p-2 rounded mt-2" style="background-color: #3e3e3e;"><code>fovTop=<span id="tutorialFovTop"></span>;
 fovLeft=<span id="tutorialFovLeft"></span>;</code></pre>
                     </li>
                     <li>Save the file and launch Arma 3.</li>
