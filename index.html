@@ -13,19 +13,50 @@
             background-image: url('https://steamuserimages-a.akamaihd.net/ugc/51331712258854655/47A86661B3CE8F23BA805E287E804B388B4103C6/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false');
             background-size: cover;
             background-position: center;
+            position: relative;
+            overflow: hidden; /* Verhindert Scrollen */
+            height: 100vh; /* Volle Bildschirmhöhe */
         }
+
+        /* Blur-Effekt mit einem Pseudoelement */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: inherit;
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px); /* Blur-Effekt */
+            z-index: -1; /* Hintergrund bleibt im Hintergrund */
+        }
+
+        /* Semi-transparente Überlagerung */
         .blur-background {
-            backdrop-filter: blur(10px); /* Adjust blur intensity as needed */
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Dunkle Überlagerung */
+            z-index: -1;
+        }
+
+        /* Hauptinhalt und Footer über dem Hintergrund */
+        .main-content, .footer {
+            position: relative;
+            z-index: 10;
         }
     </style>
 </head>
 <body class="text-white flex justify-center items-center min-h-screen">
     <!-- Blurred background overlay -->
-    <div class="absolute inset-0 blur-background"></div>
+    <div class="blur-background"></div>
 
     <!-- Main content -->
-    <div class="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md relative z-10">
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md main-content">
         <h1 class="text-2xl font-bold text-center mb-4">Arma 3 FOV Calculator</h1>
 
         <label class="block mb-2">Resolution:</label>
@@ -42,7 +73,7 @@
             <option value="21/9">21:9</option>
         </select>
 
-        <label class="block mb-2">Desired Horizontal FOV (°):</label>
+        <label class="block mb-2">FOV:</label>
         <input type="number" id="horFov" placeholder="e.g. 90" class="w-full p-2 rounded bg-gray-700 text-white mb-4">
 
         <button onclick="calculateFOV()" class="w-full bg-blue-600 hover:bg-blue-500 p-2 rounded text-white font-bold">
@@ -76,7 +107,7 @@ fovLeft=<span id="tutorialFovLeft"></span>;</code></pre>
     </div>
 
     <!-- Footer with Discord, GitHub, and Website Icons -->
-    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 items-center z-10">
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 items-center footer">
         <!-- Discord Icon -->
         <a href="https://discord.com/users/syntcs" target="_blank" class="flex items-center space-x-2 text-gray-400 hover:text-white">
             <i class="fab fa-discord text-xl"></i>
