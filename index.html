@@ -5,9 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arma 3 FOV Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Include FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Custom CSS for the blurred background */
+        body {
+            background-image: url('https://steamuserimages-a.akamaihd.net/ugc/51331712258854655/47A86661B3CE8F23BA805E287E804B388B4103C6/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false');
+            background-size: cover;
+            background-position: center;
+        }
+        .blur-background {
+            backdrop-filter: blur(10px); /* Adjust blur intensity as needed */
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white flex justify-center items-center min-h-screen">
-    <div class="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md">
+<body class="text-white flex justify-center items-center min-h-screen">
+    <!-- Blurred background overlay -->
+    <div class="absolute inset-0 blur-background"></div>
+
+    <!-- Main content -->
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md relative z-10">
         <h1 class="text-2xl font-bold text-center mb-4">Arma 3 FOV Calculator</h1>
 
         <label class="block mb-2">Resolution:</label>
@@ -38,7 +56,44 @@
             <button onclick="copyToClipboard()" class="w-full bg-green-600 hover:bg-green-500 p-2 rounded text-white font-bold mt-2">
                 Copy to Clipboard
             </button>
+
+            <!-- Tutorial Section -->
+            <div class="mt-4 p-4 bg-gray-700 rounded-lg">
+                <h3 class="font-semibold mb-2">How to Apply FOV in Arma 3:</h3>
+                <ol class="list-decimal list-inside text-sm">
+                    <li>Go to <strong>Documents</strong>.</li>
+                    <li>Open the <strong>Arma 3 - Other Profiles</strong> folder.</li>
+                    <li>Open your <strong>[username]</strong> folder.</li>
+                    <li>Edit the <strong>[username].Arma3Profile</strong> file with a text editor.</li>
+                    <li>Change following lines:
+                        <pre class="bg-gray-800 p-2 rounded mt-2"><code>fovTop=<span id="tutorialFovTop"></span>;
+fovLeft=<span id="tutorialFovLeft"></span>;</code></pre>
+                    </li>
+                    <li>Save the file and launch Arma 3.</li>
+                </ol>
+            </div>
         </div>
+    </div>
+
+    <!-- Footer with Discord, GitHub, and Website Icons -->
+    <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-4 items-center z-10">
+        <!-- Discord Icon -->
+        <a href="https://discord.com/users/syntcs" target="_blank" class="flex items-center space-x-2 text-gray-400 hover:text-white">
+            <i class="fab fa-discord text-xl"></i>
+            <span class="text-sm">@syntcs</span>
+        </a>
+
+        <!-- GitHub Icon -->
+        <a href="https://github.com/Syntcs" target="_blank" class="flex items-center space-x-2 text-gray-400 hover:text-white">
+            <i class="fab fa-github text-xl"></i>
+            <span class="text-sm">syntcs</span>
+        </a>
+
+        <!-- Website Icon -->
+        <a href="https://syntcs.github.io" target="_blank" class="flex items-center space-x-2 text-gray-400 hover:text-white">
+            <i class="fas fa-globe text-xl"></i>
+            <span class="text-sm">syntcs</span>
+        </a>
     </div>
 
     <script>
@@ -65,6 +120,8 @@
 
             document.getElementById("fovLeft").innerText = fovLeft.toFixed(2);
             document.getElementById("fovTop").innerText = fovTop.toFixed(2);
+            document.getElementById("tutorialFovTop").innerText = fovTop.toFixed(2);
+            document.getElementById("tutorialFovLeft").innerText = fovLeft.toFixed(2);
             document.getElementById("results").classList.remove("hidden");
         }
 
