@@ -1,1 +1,84 @@
-Syntcs/arma3fov.github.io
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arma 3 FOV Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex justify-center items-center min-h-screen">
+    <div class="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold text-center mb-4">Arma 3 FOV Calculator</h1>
+
+        <label class="block mb-2">Resolution:</label>
+        <div class="flex space-x-2 mb-4">
+            <input type="number" id="width" class="w-1/2 p-2 rounded bg-gray-700 text-white">
+            <span class="text-xl">×</span>
+            <input type="number" id="height" class="w-1/2 p-2 rounded bg-gray-700 text-white">
+        </div>
+
+        <label class="block mb-2">Aspect Ratio:</label>
+        <select id="aspectRatio" class="w-full p-2 rounded bg-gray-700 text-white mb-4">
+            <option value="16/9">16:9</option>
+            <option value="4/3">4:3</option>
+            <option value="21/9">21:9</option>
+        </select>
+
+        <label class="block mb-2">Desired Horizontal FOV (°):</label>
+        <input type="number" id="horFov" placeholder="e.g. 90" class="w-full p-2 rounded bg-gray-700 text-white mb-4">
+
+        <button onclick="calculateFOV()" class="w-full bg-blue-600 hover:bg-blue-500 p-2 rounded text-white font-bold">
+            Calculate
+        </button>
+
+        <div id="results" class="mt-4 hidden">
+            <h2 class="text-xl font-semibold">Results:</h2>
+            <p><strong>fovTop:</strong> <span id="fovTop"></span></p>
+            <p><strong>fovLeft:</strong> <span id="fovLeft"></span></p>
+            <button onclick="copyToClipboard()" class="w-full bg-green-600 hover:bg-green-500 p-2 rounded text-white font-bold mt-2">
+                Copy to Clipboard
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Automatically detect screen resolution
+        window.onload = function() {
+            document.getElementById("width").value = window.screen.width;
+            document.getElementById("height").value = window.screen.height;
+        };
+
+        function calculateFOV() {
+            let width = parseInt(document.getElementById("width").value);
+            let height = parseInt(document.getElementById("height").value);
+            let aspectRatio = eval(document.getElementById("aspectRatio").value); // Convert "16/9" to 1.777...
+            let horFov = parseFloat(document.getElementById("horFov").value);
+
+            if (!width || !height || !horFov) {
+                alert("Please enter valid values.");
+                return;
+            }
+
+            let horFovRad = (horFov / 2) * (Math.PI / 180);
+            let fovLeft = 2 * Math.tan(horFovRad);
+            let fovTop = fovLeft / aspectRatio;
+
+            document.getElementById("fovLeft").innerText = fovLeft.toFixed(2);
+            document.getElementById("fovTop").innerText = fovTop.toFixed(2);
+            document.getElementById("results").classList.remove("hidden");
+        }
+
+        function copyToClipboard() {
+            let fovTop = document.getElementById("fovTop").innerText;
+            let fovLeft = document.getElementById("fovLeft").innerText;
+            let textToCopy = `fovTop=${fovTop};\nfovLeft=${fovLeft};`;
+
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                alert("Copied to clipboard!");
+            }, function() {
+                alert("Failed to copy to clipboard.");
+            });
+        }
+    </script>
+</body>
+</html>
